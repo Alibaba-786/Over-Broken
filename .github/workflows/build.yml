@@ -58,7 +58,6 @@ jobs:
 
     - name: Build APK with Buildozer
       run: |
-        # Acceptance of Android SDK Licenses automatically
         yes | buildozer -v android debug
 
     - name: Upload APK Artifact
@@ -66,4 +65,5 @@ jobs:
       with:
         name: RoyalCasino-USDT-APK
         path: bin/*.apk
+
 
