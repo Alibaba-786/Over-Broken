@@ -6,8 +6,8 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 1.0.0
 
-# Dependencies required for Kivy + SSL / Binance Network Calls
-requirements = python3,kivy==2.3.0,openssl,requests,urllib3,certifi,hostpython3
+# Fixed C-bindings and urllib compilation for Android NDK
+requirements = python3,kivy==2.3.0,openssl,urllib3,certifi,hostpython3
 
 orientation = portrait
 fullscreen = 0
@@ -23,3 +23,4 @@ p4a.branch = master
 [buildozer]
 log_level = 2
 warn_on_root = 1
+
