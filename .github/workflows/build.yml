@@ -24,6 +24,16 @@ jobs:
       with:
         python-version: '3.10'
 
+    - name: Cache Buildozer & Android SDK
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.buildozer
+          .buildozer
+        key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}
+        restore-keys: |
+          ${{ runner.os }}-buildozer-
+
     - name: Install System Dependencies
       run: |
         sudo apt-get update
@@ -49,21 +59,23 @@ jobs:
           libssl-dev \
           lld \
           ccache \
-          libffi-dev
+          libffi-dev \
+          libsqlite3-dev
 
-    - name: Install Correct Cython & Buildozer
+    - name: Install Build Tools
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        pip install "cython<3.0.0" "buildozer>=1.5.0" sh
+        pip install "cython==0.29.33" "buildozer==1.5.0" sh
 
     - name: Build APK with Buildozer
       run: |
-        yes | buildozer -v android debug
+        APP_ANDROID_ACCEPT_SDK_LICENSES=1 buildozer -v android debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: RoyalCasino-USDT-APK
         path: bin/*.apk
+
 
 
